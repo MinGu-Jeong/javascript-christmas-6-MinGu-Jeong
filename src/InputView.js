@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import { isValidDate } from './Validation.js';
+import { separateMenuAndCount } from './Menu.js';
 
 const InputView = {
   guide() {
@@ -25,6 +26,7 @@ const InputView = {
       '주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)'
     );
     // Todo: 메뉴와 개수를 분리하는 함수작성
+    separateMenuAndCount(input);
     // Todo: 예외처리 함수작성
   },
 
