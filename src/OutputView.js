@@ -77,7 +77,7 @@ const OutputView = {
     } else if (totalDiscountAmount >= 5000) {
       Console.print('별');
     } else {
-      Console.print('배지 없음');
+      Console.print('없음');
     }
   }
   
