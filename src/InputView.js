@@ -1,8 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
 import { isValidDate, validateOrder } from './Validation.js';
 import { separateMenuAndCount } from './Menu.js';
+import OutputView from './OutputView.js';
 
 const InputView = {
+  date: null,
   guide() {
     Console.print('안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.');
   },
@@ -18,6 +20,7 @@ const InputView = {
       }
       Console.print('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
     }
+    this.date = input;
     return input;
   },
 
@@ -28,6 +31,8 @@ const InputView = {
       );
       const menu = separateMenuAndCount(input);
       if (validateOrder(menu)) {
+        this.guideEvent(this.date);
+        OutputView.printMenu(menu);
         return menu;
       }
       Console.print('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
@@ -36,7 +41,7 @@ const InputView = {
 
   guideEvent(date) {
     Console.print(
-      `12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`
+      `12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`
     );
   },
 };
