@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { amountBeforeDiscount, isServiceMenu } from './Menu.js';
+import { amountBeforeDiscount, isServiceMenu, dDayDiscount,weekdayDiscount } from './Menu.js';
 
 const OutputView = {
   printMenu(order) {
@@ -25,6 +25,21 @@ const OutputView = {
       Console.print('없음');
     }
   },
+
+  printBenefitList(date, order) {
+    Console.print('\n<혜택 내역>');
+    const dDayDiscountAmount = dDayDiscount(date);
+    if (dDayDiscountAmount > 0) {
+      Console.print(`크리스마스 디데이 할인: ${(-dDayDiscountAmount).toLocaleString()}원`);
+    }
+    const weekdayDiscountAmount = weekdayDiscount(date, order);
+    if (weekdayDiscountAmount > 0) {
+      Console.print(`평일 할인: ${(-weekdayDiscountAmount).toLocaleString()}원`);
+    }
+    if (dDayDiscountAmount <= 0 && weekdayDiscountAmount <= 0) {
+      Console.print('없음');
+    }
+  },  
 };
 
 export default OutputView;
