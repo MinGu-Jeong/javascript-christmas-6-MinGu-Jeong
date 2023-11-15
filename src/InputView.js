@@ -2,23 +2,23 @@ import { Console } from '@woowacourse/mission-utils';
 import { isValidDate, validateOrder } from './Validation.js';
 import { separateMenuAndCount } from './Menu.js';
 import OutputView from './OutputView.js';
+import { MESSAGE } from './constants/Message.js';
+import { ERROR } from './constants/Error.js';
 
 const InputView = {
   date: null,
   guide() {
-    Console.print('안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.');
+    Console.print(MESSAGE.guide);
   },
 
   async readDate() {
     let input;
     while (true) {
-      input = await Console.readLineAsync(
-        '12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)\n'
-      );
+      input = await Console.readLineAsync(MESSAGE.date);
       if (isValidDate(input)) {
         break;
       }
-      Console.print('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
+      Console.print(ERROR.invalidDate);
     }
     this.date = input;
     return input;
@@ -26,16 +26,14 @@ const InputView = {
 
   async readMenu() {
     while (true) {
-      const input = await Console.readLineAsync(
-        '주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)\n'
-      );
+      const input = await Console.readLineAsync(MESSAGE.menu);
       const menu = separateMenuAndCount(input);
       if (validateOrder(menu)) {
         this.guideEvent(this.date);
         OutputView.printMenu(menu);
         return menu;
       }
-      Console.print('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+      Console.print(ERROR.invalidOrder);
     }
   },
 
