@@ -9,15 +9,15 @@ export const separateMenuAndCount = (input) => {
 };
 
 const mainMenu = {
-  '티본스테이크': 55000,
-  '바비큐립': 54000,
-  '해산물파스타': 35000,
-  '크리스마스파스타': 25000
+  티본스테이크: 55000,
+  바비큐립: 54000,
+  해산물파스타: 35000,
+  크리스마스파스타: 25000,
 };
 
 const dessertMenu = {
-  '초코케이크': 15000,
-  '아이스크림': 5000
+  초코케이크: 15000,
+  아이스크림: 5000,
 };
 
 const menuPrice = {
@@ -50,8 +50,7 @@ export const amountBeforeDiscount = (order) => {
 export const isServiceMenu = (totalAmount) => {
   if (totalAmount >= 120000) {
     return 25000;
-  }
-  else{
+  } else {
     return 0;
   }
 };
@@ -108,8 +107,4 @@ export const specialDiscount = (date) => {
   } else {
     return 0;
   }
-};
-
-
-export const totalDiscount = (date) => {
 };

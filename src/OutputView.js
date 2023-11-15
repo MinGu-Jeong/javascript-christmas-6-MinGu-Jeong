@@ -36,32 +36,34 @@ const OutputView = {
 
   printBenefitList(date, order, amount) {
     Console.print(MESSAGE.benefit);
+
     const dDayDiscountAmount = dDayDiscount(date);
-    if (dDayDiscountAmount > 0) {
+    if (dDayDiscountAmount > 0 && amount >= 10000) {
       Console.print(
         `크리스마스 디데이 할인: ${(-dDayDiscountAmount).toLocaleString()}원`
       );
     }
+
     const weekdayDiscountAmount = weekdayDiscount(date, order);
-    if (weekdayDiscountAmount > 0) {
+    if (weekdayDiscountAmount > 0 && amount >= 10000) {
       Console.print(
         `평일 할인: ${(-weekdayDiscountAmount).toLocaleString()}원`
       );
     }
     const weekendDiscountAmount = weekendDiscount(date, order);
-    if (weekendDiscountAmount > 0) {
+    if (weekendDiscountAmount > 0 && amount >= 10000) {
       Console.print(
         `주말 할인: ${(-weekendDiscountAmount).toLocaleString()}원`
       );
     }
     const specialDiscountAmount = specialDiscount(date, order);
-    if (specialDiscountAmount > 0) {
+    if (specialDiscountAmount > 0 && amount >= 10000) {
       Console.print(
         `특별 할인: ${(-specialDiscountAmount).toLocaleString()}원`
       );
     }
     const serviceMenu = isServiceMenu(amount);
-    if (isServiceMenu(amount) === 25000) {
+    if (isServiceMenu(amount) === 25000 && amount >= 10000) {
       Console.print(MESSAGE.serviceEvent);
     }
     const totalDiscountAmount =
@@ -78,7 +80,11 @@ const OutputView = {
 
   printBenefitAmount(totalDiscountAmount, amount) {
     Console.print(MESSAGE.benefitAmount);
-    Console.print(`${(-totalDiscountAmount).toLocaleString()}원`);
+    if (totalDiscountAmount === 0) {
+      Console.print('0원');
+    } else {
+      Console.print(`${(-totalDiscountAmount).toLocaleString()}원`);
+    }
     Console.print(MESSAGE.totalAmount);
     let finalAmount = amount - totalDiscountAmount;
     if (amount >= 120000) {
@@ -94,8 +100,6 @@ const OutputView = {
       Console.print(MESSAGE.badgeSanta);
     } else if (totalDiscountAmount >= 10000) {
       Console.print(MESSAGE.badgeTree);
-    } else if (totalDiscountAmount >= 5000) {
-      Console.print(MESSAGE.badgeStar);
     } else {
       Console.print(MESSAGE.none);
     }
